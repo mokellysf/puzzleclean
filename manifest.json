@@ -1,0 +1,48 @@
+{
+  "name": "Cross words with crosswords",
+  "version": "1.0",
+   "permissions": ["activeTab", "declarativeContent", "storage"],
+  "description": "fix the ugly",
+  "background": {
+	"scripts": ["background.js"],
+	"persistent": true
+  },
+  "content_scripts": [ {
+  "matches": ["https://www.nytimes.com/*"],
+   "js": ["autorun.js"],
+   "run_at": "document_end"
+  } ], 
+  "options_page": "options.html",
+  "page_action": {
+	"default_popup": "popup.html",
+	"default_icon": {
+	  "16": "images/nytc16.png",
+	  "32": "images/nytc32.png",
+	  "48": "images/nytc48.png",
+	  "128": "images/nytc128.png"
+	}
+  },
+  "commands": {
+    "toggle-pencil": {
+      "suggested_key": {
+        "default": "Ctrl+0",
+        "mac": "Command+0"
+      },
+      "description": "Toggle pencil"
+    },
+    "toggle-across": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+A",
+        "mac": "Command+Shift+A"
+      },
+      "description": "Toggle across visibilty"
+    }
+  },
+  "icons": {
+	"16": "images/nytc16.png",
+	"32": "images/nytc32.png",
+	"48": "images/nytc48.png",
+	"128": "images/nytc128.png"
+  },
+  "manifest_version": 2
+}

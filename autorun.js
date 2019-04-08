@@ -48,6 +48,10 @@ window.onload=function(){
     sup2[0].parentNode.removeChild(sup2[0]);
   };
   
-//  ButtonBar-wrapper--3Cm-R
+  var ac_top = document.getElementsByClassName("pz-section pz-section-filled pz-ad-box");
+  console.log("ac_top length is " + ac_top.length);
+  for (var i = ac_top.length - 1; i > -1; i--) {
+    ac_top[i].parentNode.removeChild(ac_top[i]);
+  };
   
 }

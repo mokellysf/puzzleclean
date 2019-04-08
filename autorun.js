@@ -48,10 +48,16 @@ window.onload=function(){
     sup2[0].parentNode.removeChild(sup2[0]);
   };
   
-  var ac_top = document.getElementsByClassName("pz-section pz-section-filled pz-ad-box");
-  console.log("ac_top length is " + ac_top.length);
-  for (var i = ac_top.length - 1; i > -1; i--) {
-    ac_top[i].parentNode.removeChild(ac_top[i]);
+  var ac_ads = document.getElementsByClassName("pz-section pz-section-filled pz-ad-box");
+  console.log("ac_ads length is " + ac_ads.length);
+  for (var i = ac_ads.length - 1; i > -1; i--) {
+    ac_ads[i].parentNode.removeChild(ac_ads[i]);
+  };
+  
+  var ac_foot = document.getElementsByClassName("pz-footer");
+  console.log("ac_foot length is " + ac_foot.length);
+  if (ac_foot.length > 0) {
+    ac_foot[0].parentNode.removeChild(ac_foot[0]);
   };
   
 }

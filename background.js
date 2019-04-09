@@ -19,27 +19,42 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.commands.onCommand.addListener(function (command) {
-  if (command === "toggle-pencil") {
-    console.log("toggling pencil");
+  if (command === "toggle-pencil") {  
 	try {
 	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.executeScript(
           tabs[0].id,
           {file: 'penciltoggle.js'});
-          chrome.extension.getBackgroundPage().console.log("executed call");
-      });	
+          chrome.extension.getBackgroundPage().console.log("executed toggle-pencil");
+      });
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);
 	}
   } else if (command === "toggle-across") {
-    console.log("toggling across");
-    try {
+     try {
 	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
+        chrome.tabs.executeScript(
           tabs[0].id,
-          {file: 'removeacross.js'});
-          chrome.extension.getBackgroundPage().console.log("executed call");
+        {code: 'var clue = 0;'}, function() { chrome.tabs.executeScript(tabs[0].id,
+          {file: 'toggleclues.js'}
+          );  
+        });      
       });	
+      chrome.extension.getBackgroundPage().console.log("executed toggle-across");
+	} catch(err) {
+		chrome.extension.getBackgroundPage().console.log(err);
+	}   
+  } else if (command === "toggle-down") {
+     try {
+	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.executeScript(
+          tabs[0].id,
+        {code: 'var clue = 1;'}, function() { chrome.tabs.executeScript(tabs[0].id,
+          {file: 'toggleclues.js'}
+          );  
+        });      
+      });	
+      chrome.extension.getBackgroundPage().console.log("executed toggle-down");
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);
 	}   

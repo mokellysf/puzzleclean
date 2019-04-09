@@ -36,6 +36,13 @@
         "mac": "Command+Shift+A"
       },
       "description": "Toggle across visibilty"
+    },
+    "toggle-down": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Toggle down visibilty"
     }
   },
   "icons": {

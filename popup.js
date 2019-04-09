@@ -14,7 +14,7 @@ downOnly.onclick = function(element) {
 	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.executeScript(
           tabs[0].id,
-          {file: 'removeacross.js'});
+          {file: 'toggleclues.js'});
     });
 	
 	} catch(err) {

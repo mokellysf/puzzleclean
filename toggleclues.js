@@ -3,7 +3,8 @@ console.log("in toggleclues");
 var clues = document.getElementsByClassName("ClueList-wrapper--3m-kd");
 console.log("clues length is " + clues.length);
 
-var clueBar = document.getElementsByClassName("ClueBar-text--1fYP2");
+//var clueBar = document.getElementsByClassName("ClueBar-text--1fYP2");
+var clueBar = document.getElementsByClassName("ClueBar-bar--2RGEq");
 console.log("cluebar's length is " + clueBar.length);
 
 console.log("visibility is " + window.getComputedStyle(clues[clue], null).getPropertyValue('visibility'));

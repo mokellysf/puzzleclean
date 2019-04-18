@@ -32,6 +32,10 @@ chrome.commands.onCommand.addListener(function (command) {
 	}
   } else if (command === "toggle-across") {
      try {
+      chrome.storage.local.get({acrossVisible: true}, function(data) {
+        chrome.storage.local.set({acrossVisible: !data.acrossVisible});
+        console.log("setting acrossVisible to " + !data.acrossVisible);
+      });
 	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.executeScript(
           tabs[0].id,

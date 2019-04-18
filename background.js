@@ -3,6 +3,50 @@
 chrome.extension.getBackgroundPage().console.log("bgjs");
 
 chrome.runtime.onInstalled.addListener(function() {
+  chrome.storage.onChanged.addListener(function(changes, namespace) {
+	console.log("in onChanged");
+	for (var key in changes) {
+	  var storageChange = changes[key];
+	  console.log('Storage key "%s" in namespace "%s" changed. ' +
+				  'Old value was "%s", new value is "%s".',
+				  key,
+				  namespace,
+				  storageChange.oldValue,
+				  storageChange.newValue);
+	  var clue = 0;
+	  
+	  if (key == "acrossVisible") {
+		  console.log("setting clue to 0");
+		  clue = 0;
+	  } else if (key == "downVisible") {
+		  console.log("setting clue to 1");
+		  clue = 1;
+	  };
+	
+	  console.log("initializing state to visible");
+	  var state = "visible";
+	
+	  if (storageChange.newValue == false) {
+		  console.log("changing state to hidden");
+		  state = "hidden";
+	  };
+	  
+	  console.log("state is " + state);
+	  
+	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.executeScript(
+          tabs[0].id,
+        {code: 'var clue = ' + clue + '; var state = "' + state + '";'}, function() { chrome.tabs.executeScript(tabs[0].id,
+          {file: 'toggleclues.js'}
+          );  
+        });      
+      });
+	}
+  });
+
+  chrome.storage.local.set({acrossVisible: true});
+  chrome.storage.local.set({downVisible: true});
+  
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 	var isNyt = {
       conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -32,28 +76,20 @@ chrome.commands.onCommand.addListener(function (command) {
 	}
   } else if (command === "toggle-across") {
      try {
-	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.executeScript(
-          tabs[0].id,
-        {code: 'var clue = 0;'}, function() { chrome.tabs.executeScript(tabs[0].id,
-          {file: 'toggleclues.js'}
-          );  
-        });      
-      });	
+      chrome.storage.local.get("acrossVisible", function(data) {
+        chrome.storage.local.set({acrossVisible: !data.acrossVisible});
+        console.log("setting acrossVisible to " + !data.acrossVisible);
+      });	  
       chrome.extension.getBackgroundPage().console.log("executed toggle-across");
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);
 	}   
   } else if (command === "toggle-down") {
      try {
-	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.executeScript(
-          tabs[0].id,
-        {code: 'var clue = 1;'}, function() { chrome.tabs.executeScript(tabs[0].id,
-          {file: 'toggleclues.js'}
-          );  
-        });      
-      });	
+      chrome.storage.local.get("downVisible", function(data) {
+        chrome.storage.local.set({downVisible: !data.downVisible});
+        console.log("setting downVisible to " + !data.downVisible);
+      });
       chrome.extension.getBackgroundPage().console.log("executed toggle-down");
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);

@@ -9,29 +9,27 @@ let downOnly = document.getElementById('downOnly');
 chrome.extension.getBackgroundPage().console.log("in popup");
 
 downOnly.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in click");
+	chrome.extension.getBackgroundPage().console.log("in downOnly");
 	try {
-	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
-          tabs[0].id,
-          {file: 'toggleclues.js'});
-    });
-	
+	  chrome.storage.local.get("acrossVisible", function(data) {
+        chrome.storage.local.set({acrossVisible: !data.acrossVisible});
+        console.log("setting acrossVisible to " + !data.acrossVisible);
+      });	  
+      chrome.extension.getBackgroundPage().console.log("clicked toggle-across");
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);
 	}
 	chrome.extension.getBackgroundPage().console.log("after call");
 };
 
-pencilToggle.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in click");
+acrossOnly.onclick = function(element) {
+	chrome.extension.getBackgroundPage().console.log("in acrossOnly");
 	try {
-	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
-          tabs[0].id,
-          {file: 'penciltoggle.js'});
-    });
-	
+	  chrome.storage.local.get("downVisible", function(data) {
+        chrome.storage.local.set({downVisible: !data.downVisible});
+        console.log("setting downVisible to " + !data.downVisible);
+      });
+      chrome.extension.getBackgroundPage().console.log("clicked toggle-down");
 	} catch(err) {
 		chrome.extension.getBackgroundPage().console.log(err);
 	}

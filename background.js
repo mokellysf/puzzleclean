@@ -50,6 +50,10 @@ chrome.commands.onCommand.addListener(function (command) {
 	}   
   } else if (command === "toggle-down") {
      try {
+      chrome.storage.local.get({downVisible: true}, function(data) {
+        chrome.storage.local.set({downVisible: !data.downVisible});
+        console.log("setting downVisible to " + !data.downVisible);
+      });
 	  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.executeScript(
           tabs[0].id,

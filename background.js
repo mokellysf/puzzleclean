@@ -67,7 +67,7 @@ chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.local.set({removeSitemap: true});
   chrome.storage.local.set({removeCarousel: true});
   chrome.storage.local.set({removeWordplay: true});
-  chrome.storage.local.set({removeButtons: true});  
+  chrome.storage.local.set({removeButtons: false});  
   
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 	var isNyt = {

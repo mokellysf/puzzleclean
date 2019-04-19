@@ -5,6 +5,8 @@ chrome.extension.getBackgroundPage().console.log("bgjs");
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
 	console.log("in onChanged");
+	
+	// general reporting of what changed
 	for (var key in changes) {
 	  var storageChange = changes[key];
 	  console.log('Storage key "%s" in namespace "%s" changed. ' +
@@ -13,6 +15,12 @@ chrome.runtime.onInstalled.addListener(function() {
 				  namespace,
 				  storageChange.oldValue,
 				  storageChange.newValue);
+	  
+	  //
+	  // this section is all about toggling clue visibility
+	  //
+	  
+	  // initializing clue to affect across by default
 	  var clue = 0;
 	  
 	  if (key == "acrossVisible") {
@@ -41,11 +49,27 @@ chrome.runtime.onInstalled.addListener(function() {
           );  
         });      
       });
+      
+      //
+      // This section is about what is removed from the page on load, from the options section
+      //
+      
 	}
   });
 
+  
+  // on install, set all clues to visible by default
+  // this is stored locally as it is assumed players will not want it persisted
   chrome.storage.local.set({acrossVisible: true});
   chrome.storage.local.set({downVisible: true});
+  
+  // on install, set all sections to be removed by default
+  // this is set globally as it assumes players will desire consistency across browsers
+  chrome.storage.sync.set({removeAds: true});
+  chrome.storage.sync.set({removeSitemap: true});
+  chrome.storage.sync.set({removeCarousel: true});
+  chrome.storage.sync.set({removeWordplay: true});
+  chrome.storage.sync.set({removeButtons: true});  
   
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 	var isNyt = {

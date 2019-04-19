@@ -6,6 +6,8 @@
 
 let downOnly = document.getElementById('downOnly');
 
+chrome.extension.getBackgroundPage().console.log("downOnly is " + downOnly);
+
 chrome.extension.getBackgroundPage().console.log("in popup");
 
 downOnly.onclick = function(element) {

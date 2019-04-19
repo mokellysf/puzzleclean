@@ -59,17 +59,15 @@ chrome.runtime.onInstalled.addListener(function() {
 
   
   // on install, set all clues to visible by default
-  // this is stored locally as it is assumed players will not want it persisted
   chrome.storage.local.set({acrossVisible: true});
   chrome.storage.local.set({downVisible: true});
   
   // on install, set all sections to be removed by default
-  // this is set globally as it assumes players will desire consistency across browsers
-  chrome.storage.sync.set({removeAds: true});
-  chrome.storage.sync.set({removeSitemap: true});
-  chrome.storage.sync.set({removeCarousel: true});
-  chrome.storage.sync.set({removeWordplay: true});
-  chrome.storage.sync.set({removeButtons: true});  
+  chrome.storage.local.set({removeAds: true});
+  chrome.storage.local.set({removeSitemap: true});
+  chrome.storage.local.set({removeCarousel: true});
+  chrome.storage.local.set({removeWordplay: true});
+  chrome.storage.local.set({removeButtons: true});  
   
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 	var isNyt = {

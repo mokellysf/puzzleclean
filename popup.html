@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
-  </head>
+<html style="min-width:200px;">
   <body>
-    <button id="downOnly"></button>
-    <button id="acrossOnly"></button>
-<!--    <button id="pencilToggle"></button> -->
+    <input type="checkbox" id="toggleAcross"> Show/hide across clues<br>(cmd+shift+A)<br>
+    <input type="checkbox" id="toggleDown"> Show/hide down clues<br>(cmd+shift+L)<br>
+    Toggle pencil with cmd+0
     <script src="popup.js"></script>
   </body>
 </html>

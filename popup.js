@@ -4,12 +4,12 @@
 
 'use strict';
 
-let downOnly = document.getElementById('downOnly');
+let toggleAcross = document.getElementById('toggleAcross');
 
 chrome.extension.getBackgroundPage().console.log("in popup");
 
-downOnly.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in downOnly");
+toggleAcross.onclick = function(element) {
+	chrome.extension.getBackgroundPage().console.log("in toggleAcross");
 	try {
 	  chrome.storage.local.get("acrossVisible", function(data) {
         chrome.storage.local.set({acrossVisible: !data.acrossVisible});
@@ -22,8 +22,10 @@ downOnly.onclick = function(element) {
 	chrome.extension.getBackgroundPage().console.log("after call");
 };
 
-acrossOnly.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in acrossOnly");
+let toggleDown = document.getElementById('toggleDown');
+
+toggleDown.onclick = function(element) {
+	chrome.extension.getBackgroundPage().console.log("in toggleDown");
 	try {
 	  chrome.storage.local.get("downVisible", function(data) {
         chrome.storage.local.set({downVisible: !data.downVisible});
@@ -35,3 +37,19 @@ acrossOnly.onclick = function(element) {
 	}
 	chrome.extension.getBackgroundPage().console.log("after call");
 };
+
+function refreshChecks() {
+  chrome.extension.getBackgroundPage().console.log("in refreshChecks");
+  chrome.storage.local.get("acrossVisible", function(data) {
+    chrome.extension.getBackgroundPage().console.log("acrossVisible is " + data.acrossVisible);
+    toggleAcross.checked = !data.acrossVisible;    
+  });
+  chrome.storage.local.get("downVisible", function(data) {
+    chrome.extension.getBackgroundPage().console.log("downVisible is " + data.downVisible);
+    toggleDown.checked = !data.downVisible;
+  });
+};
+
+window.addEventListener ? 
+window.addEventListener("load", refreshChecks, false) : 
+window.attachEvent && window.attachEvent("onload", refreshChecks);

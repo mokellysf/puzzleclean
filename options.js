@@ -4,21 +4,10 @@
 
 'use strict';
 
-// let removeAds = document.getElementById('removeAds');
-// let removeSitemap = document.getElementById('removeSitemap');
-// let removeCarousel = document.getElementById('removeCarousel');
-// let removeWordplay = document.getElementById('removeWordplay');
-// let removeButtons = document.getElementById('removeButtons');
-
-
 chrome.extension.getBackgroundPage().console.log("in options");
 
 var el = document.getElementById('options');
-console.log("el looks like this: " + el);
-
-
 var boxes = el.getElementsByTagName('input');
-console.log("boxes looks like this: " + boxes);
 
 for (var i=0, len=boxes.length; i<len; i++) {
   if ( boxes[i].type === 'checkbox' ) {
@@ -46,36 +35,24 @@ function logClick(box) {
 // };
 
 
-// initialize all boxes to be checked according to stored values
-// function refreshOptionsChecks() {
-//   chrome.extension.getBackgroundPage().console.log("in refreshOptionsChecks");
-// 
-//   chrome.storage.local.get("removeAds", function(data) {
-//     chrome.extension.getBackgroundPage().console.log("removeAds is " + data.removeAds);
-//     removeAds.checked = data.removeAds;    
-//   });
-// 
-//   chrome.storage.local.get("removeSitemap", function(data) {
-//     chrome.extension.getBackgroundPage().console.log("removeSitemap is " + data.removeSitemap);
-//     removeSitemap.checked = data.removeSitemap;
-//   });
-//     chrome.storage.local.get("removeCarousel", function(data) {
-//     chrome.extension.getBackgroundPage().console.log("removeCarousel is " + data.removeCarousel);
-//     removeCarousel.checked = data.removeCarousel;
-//   });
-// 
-//   chrome.storage.local.get("removeWordplay", function(data) {
-//     chrome.extension.getBackgroundPage().console.log("removeWordplay is " + data.removeWordplay);
-//     removeWordplay.checked = data.removeWordplay;
-//   });
-// 
-//   chrome.storage.local.get("removeButtons", function(data) {
-//     chrome.extension.getBackgroundPage().console.log("removeButtons is " + data.removeButtons);
-//     removeButtons.checked = data.removeButtons;
-//   });
-// 
-// };
-// 
-// window.addEventListener ? 
-// window.addEventListener("load", refreshOptionsChecks, false) : 
-// window.attachEvent && window.attachEvent("onload", refreshOptionsChecks);
+//initialize all boxes to be checked according to stored values
+function refreshOptionsChecks() {  
+  var el = document.getElementById('options');  
+  var boxes = el.getElementsByTagName('input');  
+  for (var i=0, len=boxes.length; i<len; i++) {
+    if ( boxes[i].type === 'checkbox' ) {
+      initiateBox(boxes[i]);
+    };
+  };
+};
+
+function initiateBox(box) {
+  var which = box.value;
+  chrome.storage.local.get(which, function(data) {
+    box.checked = data[which];
+  });
+};
+
+window.addEventListener ? 
+window.addEventListener("load", refreshOptionsChecks, false) : 
+window.attachEvent && window.attachEvent("onload", refreshOptionsChecks);

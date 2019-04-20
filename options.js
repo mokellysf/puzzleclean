@@ -4,8 +4,9 @@
 
 'use strict';
 
-chrome.extension.getBackgroundPage().console.log("in options");
+console.log("in options");
 
+// assign click functionality to options checkboxes
 var el = document.getElementById('options');
 var boxes = el.getElementsByTagName('input');
 
@@ -15,24 +16,15 @@ for (var i=0, len=boxes.length; i<len; i++) {
   };
 };
 
+// store user selections
 function logClick(box) {
-  console.log("this looks like " + this);
-  console.log("and has the value " + this.value);
+  var which = this.value;
+  var remove = this.checked;
+  console.log("setting " + which + " to " + remove);
+  var obj = {};
+  obj[which] = remove;
+  chrome.storage.local.set(obj);
 };
-
-// removeAds.onclick = function(element) {
-// 	chrome.extension.getBackgroundPage().console.log("in toggleAcross");
-// 	try {
-// 	  chrome.storage.local.get("acrossVisible", function(data) {
-//         chrome.storage.local.set({acrossVisible: !data.acrossVisible});
-//         console.log("setting acrossVisible to " + !data.acrossVisible);
-//       });	  
-//       chrome.extension.getBackgroundPage().console.log("clicked toggle-across");
-// 	} catch(err) {
-// 		chrome.extension.getBackgroundPage().console.log(err);
-// 	}
-// 	chrome.extension.getBackgroundPage().console.log("after call");
-// };
 
 
 //initialize all boxes to be checked according to stored values

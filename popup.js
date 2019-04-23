@@ -4,49 +4,39 @@
 
 'use strict';
 
-let toggleAcross = document.getElementById('toggleAcross');
+var el = document.getElementById('toggles');
+var boxes = el.getElementsByTagName('input');
 
-chrome.extension.getBackgroundPage().console.log("in popup");
-
-toggleAcross.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in toggleAcross");
-	try {
-	  chrome.storage.local.get("acrossVisible", function(data) {
-        chrome.storage.local.set({acrossVisible: !data.acrossVisible});
-        console.log("setting acrossVisible to " + !data.acrossVisible);
-      });	  
-      chrome.extension.getBackgroundPage().console.log("clicked toggle-across");
-	} catch(err) {
-		chrome.extension.getBackgroundPage().console.log(err);
-	}
-	chrome.extension.getBackgroundPage().console.log("after call");
+for (var i=0, len=boxes.length; i<len; i++) {
+  if ( boxes[i].type === 'checkbox' ) {
+    boxes[i].onclick = toggle;    
+  };
 };
 
-let toggleDown = document.getElementById('toggleDown');
-
-toggleDown.onclick = function(element) {
-	chrome.extension.getBackgroundPage().console.log("in toggleDown");
-	try {
-	  chrome.storage.local.get("downVisible", function(data) {
-        chrome.storage.local.set({downVisible: !data.downVisible});
-        console.log("setting downVisible to " + !data.downVisible);
-      });
-      chrome.extension.getBackgroundPage().console.log("clicked toggle-down");
-	} catch(err) {
-		chrome.extension.getBackgroundPage().console.log(err);
-	}
-	chrome.extension.getBackgroundPage().console.log("after call");
+function toggle(box) {
+  var which = this.value;
+  var hide = this.checked;
+  console.log("setting " + which + " to " + !hide);
+  var obj = {};
+  obj[which] = !hide;
+  chrome.storage.local.set(obj);
 };
 
-function refreshChecks() {
-  chrome.extension.getBackgroundPage().console.log("in refreshChecks");
-  chrome.storage.local.get("acrossVisible", function(data) {
-    chrome.extension.getBackgroundPage().console.log("acrossVisible is " + data.acrossVisible);
-    toggleAcross.checked = !data.acrossVisible;    
-  });
-  chrome.storage.local.get("downVisible", function(data) {
-    chrome.extension.getBackgroundPage().console.log("downVisible is " + data.downVisible);
-    toggleDown.checked = !data.downVisible;
+function refreshChecks() {  
+  var el = document.getElementById('toggles');  
+  var boxes = el.getElementsByTagName('input');  
+  for (var i=0, len=boxes.length; i<len; i++) {
+    if ( boxes[i].type === 'checkbox' ) {
+      initiateBox(boxes[i]);
+    };
+  };
+};
+
+function initiateBox(box) {
+  var which = box.value;
+  chrome.storage.local.get(which, function(data) {
+    box.checked = !data[which];
+    console.log("setting " + which + " to " + !data.which);
   });
 };
 

@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html style="min-width:200px;">
   <body>
-    <input type="checkbox" id="toggleAcross"> Show/hide across clues<br>(cmd+shift+A)<br>
-    <input type="checkbox" id="toggleDown"> Show/hide down clues<br>(cmd+shift+L)<br>
+    <div id="toggles">
+      <span>
+      <input id="toggle" type="checkbox" value="acrossVisible"/>
+      <label for="toggle">Hide across clues<br>(cmd+shift+A)<br></label>
+      </span> 
+      <span>
+      <input id="toggle" type="checkbox" value="downVisible"/>
+      <label for="toggle">Hide down clues<br>(cmd+shift+L)<br></label>
+      </span> 
+    </div>
     Toggle pencil with cmd+0
     <script src="popup.js"></script>
   </body>

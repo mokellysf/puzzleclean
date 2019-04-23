@@ -4,20 +4,47 @@
 
 'use strict';
 
-let page = document.getElementById('buttonDiv');
+console.log("in options");
 
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
+// assign click functionality to options checkboxes
+var el = document.getElementById('options');
+var boxes = el.getElementsByTagName('input');
 
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({color: item}, function() {
-        console.log('color is ' + item);
-      })
-    });
-    page.appendChild(button);
-  }
-}
-constructOptions(kButtonColors);
+for (var i=0, len=boxes.length; i<len; i++) {
+  if ( boxes[i].type === 'checkbox' ) {
+    boxes[i].onclick = logClick;    
+  };
+};
+
+// store user selections
+function logClick(box) {
+  var which = this.value;
+  var remove = this.checked;
+  console.log("setting " + which + " to " + remove);
+  var obj = {};
+  obj[which] = remove;
+  chrome.storage.local.set(obj);
+};
+
+
+//initialize all boxes to be checked according to stored values
+function refreshOptionsChecks() {  
+  var el = document.getElementById('options');  
+  var boxes = el.getElementsByTagName('input');  
+  for (var i=0, len=boxes.length; i<len; i++) {
+    if ( boxes[i].type === 'checkbox' ) {
+      initiateBox(boxes[i]);
+    };
+  };
+};
+
+function initiateBox(box) {
+  var which = box.value;
+  chrome.storage.local.get(which, function(data) {
+    box.checked = data[which];
+  });
+};
+
+window.addEventListener ? 
+window.addEventListener("load", refreshOptionsChecks, false) : 
+window.attachEvent && window.attachEvent("onload", refreshOptionsChecks);

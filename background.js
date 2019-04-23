@@ -5,6 +5,8 @@ chrome.extension.getBackgroundPage().console.log("bgjs");
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
 	console.log("in onChanged");
+	
+	// general reporting of what changed
 	for (var key in changes) {
 	  var storageChange = changes[key];
 	  console.log('Storage key "%s" in namespace "%s" changed. ' +
@@ -13,6 +15,12 @@ chrome.runtime.onInstalled.addListener(function() {
 				  namespace,
 				  storageChange.oldValue,
 				  storageChange.newValue);
+	  
+	  //
+	  // this section is all about toggling clue visibility
+	  //
+	  
+	  // initializing clue to affect across by default
 	  var clue = 0;
 	  
 	  if (key == "acrossVisible") {
@@ -41,11 +49,25 @@ chrome.runtime.onInstalled.addListener(function() {
           );  
         });      
       });
+      
+      //
+      // This section is about what is removed from the page on load, from the options section
+      //
+      
 	}
   });
 
+  
+  // on install, set all clues to visible by default
   chrome.storage.local.set({acrossVisible: true});
   chrome.storage.local.set({downVisible: true});
+  
+  // on install, set all sections to be removed by default
+  chrome.storage.local.set({removeAds: true});
+  chrome.storage.local.set({removeSitemap: true});
+  chrome.storage.local.set({removeCarousel: true});
+  chrome.storage.local.set({removeWordplay: true});
+  chrome.storage.local.set({removeButtons: false});  
   
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 	var isNyt = {

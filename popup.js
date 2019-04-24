@@ -13,6 +13,18 @@ for (var i=0, len=boxes.length; i<len; i++) {
   };
 };
 
+var opel = document.getElementById('options');
+opel.onclick = openOptions;
+
+function openOptions() {
+  console.log("Opening options page");
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  };
+};
+
 function toggle(box) {
   var which = this.value;
   var hide = this.checked;
@@ -33,6 +45,8 @@ function refreshPopup() {
       console.log("Initializing popup to offer acrostic options");
       var el = document.getElementById('toggles');  
       el.style.display = "none";
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "block";      
     } else if (currentTab.url.includes("crosswords/game")) {
       console.log("Initializing popup to offer crossword options");      
       var el = document.getElementById('toggles');  
@@ -43,8 +57,12 @@ function refreshPopup() {
           initiateBox(boxes[i]);
         };
       };
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "block";      
     } else {
       console.log("nothing familiar about this page");
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "none";      
     };
   });
 };

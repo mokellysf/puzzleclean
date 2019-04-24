@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html style="min-width:200px;">
+<html style="min-width:215px;">  
   <body>
-    <div id="toggles">
-      <span>
-      <input id="toggle" type="checkbox" value="acrossVisible"/>
-      <label for="toggle">Hide across clues<br>(cmd+shift+A)<br></label>
-      </span> 
-      <span>
-      <input id="toggle" type="checkbox" value="downVisible"/>
-      <label for="toggle">Hide down clues<br>(cmd+shift+L)<br></label>
-      </span> 
-    </div>
-    Toggle pencil with cmd+0
+    <header>
+      <div class="top">
+        <img style="float: left; margin: 0px 5px 5px 0px;" src = "images/master.png" width=25>
+        <font size="+2"><b>Crossclean</b></font>
+        <input type="image" id="options" style="float: right; margin: 0px 0px 15px 0px;" src = "images/gear.png" width=20>
+      </div>
+    </header>
+    <hr/>
+    <main id="middle">
+      <div id="toggles">
+        <span>
+        <input id="toggle" type="checkbox" value="acrossVisible"/>
+        <label for="toggle"><b>Hide across clues</b><br>- (cmd+shift+A)<br></label>
+        </span> 
+        <span>
+        <input id="toggle" type="checkbox" value="downVisible"/>
+        <label for="toggle"><b>Hide down clues</b><br>- (cmd+shift+L)<br></label>
+        </span> 
+      </div>
+      - Toggle pencil with cmd+0
+    </main>
+    <hr/>
+    <footer>
+    </footer>
     <script src="popup.js"></script>
   </body>
 </html>

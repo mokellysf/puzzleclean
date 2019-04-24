@@ -45,6 +45,8 @@ function refreshPopup() {
       console.log("Initializing popup to offer acrostic options");
       var el = document.getElementById('toggles');  
       el.style.display = "none";
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "block";      
     } else if (currentTab.url.includes("crosswords/game")) {
       console.log("Initializing popup to offer crossword options");      
       var el = document.getElementById('toggles');  
@@ -55,8 +57,12 @@ function refreshPopup() {
           initiateBox(boxes[i]);
         };
       };
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "block";      
     } else {
       console.log("nothing familiar about this page");
+      var opmid = document.getElementById('middle');
+      opmid.style.display = "none";      
     };
   });
 };

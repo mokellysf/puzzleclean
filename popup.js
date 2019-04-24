@@ -13,6 +13,18 @@ for (var i=0, len=boxes.length; i<len; i++) {
   };
 };
 
+var opel = document.getElementById('options');
+opel.onclick = openOptions;
+
+function openOptions() {
+  console.log("Opening options page");
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  };
+};
+
 function toggle(box) {
   var which = this.value;
   var hide = this.checked;

@@ -22,14 +22,31 @@ function toggle(box) {
   chrome.storage.local.set(obj);
 };
 
-function refreshChecks() {  
-  var el = document.getElementById('toggles');  
-  var boxes = el.getElementsByTagName('input');  
-  for (var i=0, len=boxes.length; i<len; i++) {
-    if ( boxes[i].type === 'checkbox' ) {
-      initiateBox(boxes[i]);
+function refreshPopup() {  
+  console.log("checking current url");
+  var query = { active: true, currentWindow: true };
+  var currentTab = "";
+  chrome.tabs.query(query, function (tabs) {
+    currentTab = tabs[0];
+    console.log("currentTab in function is " + currentTab.url);
+    if (currentTab.url.includes("puzzles/acrostic")) {
+      console.log("Initializing popup to offer acrostic options");
+      var el = document.getElementById('toggles');  
+      el.style.display = "none";
+    } else if (currentTab.url.includes("crosswords/game")) {
+      console.log("Initializing popup to offer crossword options");      
+      var el = document.getElementById('toggles');  
+      el.style.display = "block";
+      var boxes = el.getElementsByTagName('input');  
+      for (var i=0, len=boxes.length; i<len; i++) {
+        if ( boxes[i].type === 'checkbox' ) {
+          initiateBox(boxes[i]);
+        };
+      };
+    } else {
+      console.log("nothing familiar about this page");
     };
-  };
+  });
 };
 
 function initiateBox(box) {
@@ -41,5 +58,5 @@ function initiateBox(box) {
 };
 
 window.addEventListener ? 
-window.addEventListener("load", refreshChecks, false) : 
-window.attachEvent && window.attachEvent("onload", refreshChecks);
+window.addEventListener("load", refreshPopup, false) : 
+window.attachEvent && window.attachEvent("onload", refreshPopup);

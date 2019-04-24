@@ -1,0 +1,17 @@
+Welcome to Crossclean! 
+
+This extension removes a lot of the cruft on the New York Times online puzzle pages, and gives new tools to navigate and enjoy them!
+
+I am a big fan of the NYT crossword, but I found that over time they added a lot of material that was distracting or unpleasant to me, which made it harder to use. Additionally, there were options I wanted which they didn't provide, so I made this extension to help.
+
+Features:
+- Optionally remove the imposing advertisement areas and other features from the page, such as:
+    Wordplay section
+    The sitemap footer
+    Scrolling alternate puzzles carousel
+    
+- Adds the ability to show/hide the across or down clues, for those that want an additional challenge
+
+- Adds a keyboard shortcut (CMD+0) for the pencil tool, for easy switching
+
+I hope you enjoy this extension, please get in touch with any requests for features or improvements!

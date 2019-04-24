@@ -1,5 +1,5 @@
 {
-  "name": "Cross words with crosswords",
+  "name": "Crossclean",
   "version": "0.0.0.1",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "description": "Cleans and simplifies the NYT puzzle pages",
